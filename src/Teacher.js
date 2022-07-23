@@ -2,17 +2,17 @@ import axios from "axios";
 import React from "react";
 import './Styling.css';
 
-class Students extends React.Component{
+class Teachers extends React.Component{
 
     constructor(){
         super()
         this.state = {
-            students:[],
+            teachers:[],
             name:'',
             age:'',
-            grade:'',
-            parentName:'',
-            occupation:'',
+            dept:'',
+            experience:'',
+            salary:'',
             phone:'',
             address:'',
             id:''
@@ -21,9 +21,9 @@ class Students extends React.Component{
 
     async componentDidMount(){
         // Read
-        var response = await axios.get('https://620fad6fec8b2ee2834903e1.mockapi.io/students')
+        var response = await axios.get('https://620fad6fec8b2ee2834903e1.mockapi.io/teachers')
         
-        await this.setState({ students: response.data })
+        await this.setState({ teachers: response.data })
         // console.log(response.data)
     }
 
@@ -36,42 +36,42 @@ class Students extends React.Component{
 
         if(this.state.id){
             // Update
-            var response = await axios.put(`https://620fad6fec8b2ee2834903e1.mockapi.io/students/${this.state.id}`,{
+            var response = await axios.put(`https://620fad6fec8b2ee2834903e1.mockapi.io/teachers/${this.state.id}`,{
               name: this.state.name,
               age: this.state.age,
-              grade: this.state.grade,
-              parentName: this.state.parentName,
-              occupation: this.state.occupation,
+              dept: this.state.dept,
+              experience: this.state.experience,
+              salary: this.state.salary,
               phone: this.state.phone,
               address: this.state.address
             })
 
-            var index = this.state.students.findIndex((row) => row.id === response.data.id)
-            var students = [...this.state.students]
-            students[index] = response.data
+            var index = this.state.teachers.findIndex((row) => row.id === response.data.id)
+            var teachers = [...this.state.teachers]
+            teachers[index] = response.data
 
-            this.setState({students, id:'',name:'', age:'', 
-                            grade:'', parentName:'',
-                            occupation:'', phone:'', address:''})
+            this.setState({teachers, id:'',name:'', age:'', 
+                            dept:'',experience:'',salary:'',
+                            phone:'', address:''})
             // console.log(response)
         }
         else{
             // Create
-            let response = await axios.post('https://620fad6fec8b2ee2834903e1.mockapi.io/students',{
+            let response = await axios.post('https://620fad6fec8b2ee2834903e1.mockapi.io/teachers',{
                 name: this.state.name,
                 age: this.state.age,
-                grade: this.state.grade,
-                parentName: this.state.parentName,
-                occupation: this.state.occupation,
+                dept: this.state.dept,
+                experience: this.state.experience,
+                salary: this.state.salary,
                 phone: this.state.phone,
                 address: this.state.address
             })
 
-            let students = [...this.state.students]
-            students.push(response.data)
-            this.setState({students, id:'',name:'', age:'', 
-                          grade:'', parentName:'',
-                          occupation:'', phone:'', address:''})
+            let teachers = [...this.state.teachers]
+            teachers.push(response.data)
+            this.setState({teachers, id:'',name:'', age:'', 
+                            dept:'',experience:'',salary:'',
+                            phone:'', address:''})
             // console.log(response)
         }
         
@@ -79,21 +79,21 @@ class Students extends React.Component{
 
     handleDelete = (id) => {
         // Delete
-        axios.delete(`https://620fad6fec8b2ee2834903e1.mockapi.io/students/${id}`)
+        axios.delete(`https://620fad6fec8b2ee2834903e1.mockapi.io/teachers/${id}`)
 
-        var students = this.state.students.filter(row => row.id !== id)
-        this.setState({students})
+        var teachers = this.state.teachers.filter(row => row.id !== id)
+        this.setState({teachers})
     }
 
     populateData = (id) =>{
-        const selectedData = this.state.students.filter(row => row.id === id)[0]
+        const selectedData = this.state.teachers.filter(row => row.id === id)[0]
         this.setState({
             id: selectedData.id,
             name: selectedData.name,
             age: selectedData.age,
-            grade: selectedData.grade,
-            parentName: selectedData.parentName,
-            occupation: selectedData.occupation,
+            dept: selectedData.dept,
+            experience: selectedData.experience,
+            salary: selectedData.salary,
             phone: selectedData.phone,
             address: selectedData.address
         })
@@ -130,21 +130,21 @@ render(){
           onChange={(e) => this.handleChange(e)}
           style={{position: "absolute", left: "112px"}}></input><br /><br />
 
-          <label style={{position: "relative"}}>Grade:</label> &nbsp;
-          <input type="number" name="grade"
-          value={this.state.grade}
+          <label style={{position: "relative"}}>Dept:</label> &nbsp;
+          <input type="text" name="dept"
+          value={this.state.dept}
           onChange={(e) => this.handleChange(e)}
           style={{position: "absolute", left: "112px"}}></input><br /><br />
 
-          <label style={{position: "relative"}}>ParentName:</label> &nbsp;
-          <input type="text" name="parentName"
-          value={this.state.parentName}
+          <label style={{position: "relative"}}>Experience:</label> &nbsp;
+          <input type="number" name="experience"
+          value={this.state.experience}
           onChange={(e) => this.handleChange(e)}
           style={{position: "absolute", left: "112px"}}></input><br /><br />
 
-          <label style={{position: "relative"}}>Occupation:</label> &nbsp;
-          <input type="text" name="occupation"
-          value={this.state.occupation}
+          <label style={{position: "relative"}}>Salary:</label> &nbsp;
+          <input type="number" name="salary"
+          value={this.state.salary}
           onChange={(e) => this.handleChange(e)}
           style={{position: "absolute", left: "112px"}}></input><br /><br />
 
@@ -167,32 +167,32 @@ render(){
       </div>
                 
       <div style={{position: "relative"}}>
-        <h2 style={{paddingLeft: "335px"}}>Students-Information</h2>
+        <h2 style={{paddingLeft: "335px"}}>Teachers-Information</h2>
         <table border={1} style={{position: "absolute", left: "20px"}}>
             <thead>
                 <tr>
                     <td>Id</td>
                     <td>Name</td>
                     <td>Age</td>
-                    <td>Grade</td>
-                    <td>ParentName</td>
-                    <td>Occupation</td>
+                    <td>Dept</td>
+                    <td>Experience</td>
+                    <td>Salary</td>
                     <td>Phone</td>
                     <td>Address</td>
                     <td>Actions</td>
                 </tr>
             </thead>
             <tbody>
-                {this.state.students.map(row =>
+                {this.state.teachers.map(row =>
                     <tr>
                         <td>{row.id}</td>
                         <td>{row.name}</td>
                         <td>{row.age}</td>
-                        <td>{row.grade}</td>
-                        <td>{row.parentName}</td>
-                        <td>{row.occupation}</td>
+                        <td>{row.dept}</td>
+                        <td>{row.experience}</td>
+                        <td>{row.salary}</td>
                         <td>{row.phone}</td>
-                        <td>{row.address}</td>
+                        <td>{row.address}</td>  
                         <td>
                             <button onClick={()=>this.populateData(row.id)}>Edit</button> &nbsp;
                             <button onClick={()=>this.handleDelete(row.id)}>Delete</button>
@@ -209,4 +209,4 @@ render(){
 }
 }
 
-export {Students}
+export default Teachers;
