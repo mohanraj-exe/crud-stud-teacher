@@ -109,7 +109,7 @@ render(){
                     left: "850px",  width: "400px",
                     margin:"5px",padding:"10px"}}>
 
-        <h2 style={{textAlign: "center"}}>Student Form</h2>
+        <h2 style={{textAlign: "center"}}>Teacher Form</h2>
         <form onSubmit={(e) => this.handleSubmit(e)} style={{display: "relative"}}>
 
           <label style={{position: "relative"}}>ID:</label> &nbsp;
